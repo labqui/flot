@@ -51,6 +51,21 @@ The symbols are accessed as strings through the standard symbol options:
                 ctx.lineTo(x + size, y + size);
                 ctx.moveTo(x - size, y + size);
                 ctx.lineTo(x + size, y - size);
+            },
+            heart:function( ctx, x, y, radius, shadow ) {
+                // pi * r^2 = 1/2 * s^2 * sin (pi / 3)  =>  s = r * sqrt(2 * pi / sin(pi / 3)) 
+                var size = radius * Math.sqrt( 2 * Math.PI / Math.sin( Math.PI / 3 ) );
+                var height = size;
+                var top_curve = height * 0.3;
+                ctx.moveTo( x, y + top_curve );
+                // top left curve
+                ctx.bezierCurveTo( x, y, x - size / 2, y, x - size / 2, y + top_curve );
+                // bottom left curve
+                ctx.bezierCurveTo( x - size / 2, y + ( height + top_curve ) / 2, x, y + ( height + top_curve ) / 2, x, y + height );
+                // bottom right curve
+                ctx.bezierCurveTo( x, y + ( height + top_curve ) / 2, x + size / 2, y + ( height + top_curve ) / 2, x + size / 2, y + top_curve );
+                // top right curve
+                ctx.bezierCurveTo( x + size / 2, y, x, y, x, y + top_curve );
             }
         };
 
